@@ -1,5 +1,5 @@
 # xip
-目前仅做了windows适配。
+目前仅做了windows适配。尽量设置网卡为英文名称。
 
 Modify IP address via command line, supporting IPv4 and IPv6.
 ![image](https://github.com/user-attachments/assets/4aa78adc-2e45-49f9-b42d-560583856a03)

@@ -42,6 +42,7 @@ const (
 	availableOptions   = "\n可用选项:"
 	networkToolTitle   = "网络配置工具 by @cc"
 	networkToolDivLine = "================================="
+	version            = "v1.1"
 )
 
 var (
@@ -605,7 +606,7 @@ func selectInterfaceFromList(signalChan chan os.Signal) (string, bool) {
 		if len(line) > 0 {
 			parts := strings.Fields(line)
 			if len(parts) > 3 {
-				interfaces = append(interfaces, parts[3])
+				interfaces = append(interfaces, strings.Join(parts[3:], " "))
 			}
 		}
 
@@ -746,7 +747,7 @@ func main() {
 	validInterfaces := []string{"lan", "wlan", "s", exitString}
 	var interfaceName string
 	var adapterFound bool
-	defaultColor.Println(networkToolTitle)
+	defaultColor.Println(networkToolTitle, version)
 	defaultColor.Println(networkToolDivLine)
 	var signalChan = make(chan os.Signal, 1)
 	signal.Notify(signalChan, syscall.SIGINT)
@@ -755,7 +756,7 @@ mainLoop:
 	for {
 		adapterFound = false
 		for !adapterFound {
-			interfaceName, _ = getValidInput("设置接口 (lan, wlan, s, 或 exit)", validInterfaces, invalidInterface, nil)
+			interfaceName, _ = getValidInput("\n设置接口 (lan, wlan, s, 或 exit)", validInterfaces, invalidInterface, nil)
 			if interfaceName == "" {
 				continue
 			}
